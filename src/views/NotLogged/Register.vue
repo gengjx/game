@@ -11,7 +11,7 @@
                 </el-form-item>
                 <el-form-item label="验证码">
                          <el-input style="height: 50px"></el-input>
-                    <el-image style="margin-left: 30%" :src="require('../assets/logo.png')"></el-image>
+                    <el-image style="margin-left: 30%" :src="require('../../assets/logo.png')"></el-image>
                     <el-link>看不清楚,换一张</el-link>
                 </el-form-item>
                 <el-form-item  style="text-align: center">
@@ -45,7 +45,7 @@
 
 <style scoped>
     .background{
-        background-image: url("../assets/acct_creation_bg.jpg");
+        background-image: url("../../assets/acct_creation_bg.jpg");
         height: 100%;
         width: 100%;
         color: white;

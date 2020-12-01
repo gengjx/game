@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login'
-import Base from '../views/Base'
-import Register from '../views/Register'
+import Login from '../views/NotLogged/Login'
+import Base from '../views/NotLogged/Base'
+import Register from '../views/NotLogged/Register'
+import LBase from '../views/Logged/Base'
+import Information     from '../views/Logged/Information'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,7 +30,19 @@ const routes = [
         component: Register,
       }
     ]
-  }
+  },
+  {
+    path: '/LBase',
+    name: 'LBase',
+    component: LBase,
+    children:[
+      {
+        path: '/Information',
+        name: '',
+        component:Information
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

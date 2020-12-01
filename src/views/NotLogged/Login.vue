@@ -56,7 +56,7 @@
         },
         methods:{
             login(){
-                this.$router.push('/Home')
+                this.$router.push('/LBase')
                 this.$postRequest('/system/login',
                     {
                         userName:this.loginForm.userName,
@@ -83,7 +83,7 @@
 
 <style scoped>
     .a{
-        background-image: url("../assets/acct_creation_bg.jpg");
+        background-image: url("../../assets/acct_creation_bg.jpg");
         height:100%;
         width: 100%;
     }
