@@ -2,20 +2,25 @@
     <div class="background">
         <div style="height: 100%;width: 40%;float: left;margin-left: 25%">
             <div style="font-size: 52px;margin-top: 80px"> 创建账户</div><br>
-            <el-form :model="RegisterFrom" ref="RegisterFrom"  :label-position="label_position" class="RegisterFrom" >
-                <el-form-item  label="手机号">
+            <el-form :model="RegisterFrom" ref="RegisterFrom" :rule="rules" :label-position="label_position" class="RegisterFrom" >
+
+                <el-form-item  label="手机号" prop="userName">
                     <el-input   v-model="RegisterFrom.userName"  >     </el-input>
                 </el-form-item>
-                <el-form-item  label="密码">
+                <el-form-item  label="密码" prop="password">
                     <el-input type="password"   v-model="RegisterFrom.Password"   >     </el-input>
                 </el-form-item>
-                <el-form-item label="验证码">
-                         <el-input style="height: 50px"></el-input>
-                    <el-image style="margin-left: 30%" :src="require('../../assets/logo.png')"></el-image>
-                    <el-link>看不清楚,换一张</el-link>
+                <el-form-item label="验证码" >
+                         <el-input style="height: 50px" v-model="RegisterFrom.Verification"></el-input>
+
                 </el-form-item>
+                <el-form-item>
+                    <el-image style="margin-left: 30%" :src="codeSrc" @click="getcaptchaImage"></el-image>
+                    <el-link @click="getcaptchaImage" style="float: left">看不清楚,换一张</el-link>
+                </el-form-item>
+
                 <el-form-item  style="text-align: center">
-                    <el-button >创建账户</el-button>
+                    <el-button @click="create('RegisterFrom')">创建账户</el-button>
                 </el-form-item>
 
             </el-form>
@@ -32,13 +37,54 @@
         name: "Register",
         data(){
             return{
-
+                codeSrc:'',
                 RegisterFrom:{
-                    userName:'18745781312',
-                    Password:'wgjx913886'
+                    userName:'',
+                    Password:'',
+                    Verification:'',
+
                 },
-                label_position :  'top'
+                label_position :  'top',
+                rules: {
+                    userName: [
+                        { required: true, message: '请输入用户名称', trigger: 'blur' },
+                    ],
+                    password: [
+                        { required: true, message: '请选择输入密码', trigger: 'blur' }
+                    ],
+                }
+
+
             }
+        },
+        mounted() {
+            this.getcaptchaImage();
+        },
+        methods:{
+            create(RegisterFrom){
+
+                this.$refs[RegisterFrom].validate((valid) => {
+                    if (valid) {
+                        this.$message('创建用户成功')
+                        this.$router.push('/Login')
+                        return true;
+                    } else {
+                        this.$alert('请查看错误提示');
+                        return false;
+                    }
+                });
+
+
+            },
+            getcaptchaImage(){
+                this.$getRepquest("/captchaImage").then(resp=>{
+                    console.log(resp)
+                    this.codeSrc='data:image/png;base64,'+resp.img;
+                    this.loginForm.uuid = resp.uuid;
+                    console.log(this.codeSrc)
+
+                });
+            },
         }
     }
 </script>

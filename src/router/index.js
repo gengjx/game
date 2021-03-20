@@ -6,9 +6,7 @@ import Base from '../views/NotLogged/Base'
 import Register from '../views/NotLogged/Register'
 import LBase from '../views/Logged/Base'
 import Information     from '../views/Logged/Information'
-
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/Home',

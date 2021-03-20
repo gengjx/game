@@ -34,11 +34,11 @@
                 </div>
             </el-header>
             <el-main style="height: 75%" >
-                <router-view></router-view>
+                <router-view style="width: 100%;height: 100%"></router-view>
             </el-main>
-            <el-footer style="height: 20%;width: 100%" >
+            <el-footer style="height: 20%;width: 100%;padding-bottom: 0%" >
                 <div style="float: left;width: 20%; color: white">
-                    <el-image :src="require('../../assets/index.jpg')" style="height: 10%;float: left;width: 30%;margin-top: 20px"></el-image>
+                    <el-image :src="require('../../assets/index.jpg')" style="height: 10%;float: left;width: 30%;margin-top: 5%"></el-image>
                     <br>
                     <br>
                     <br>
@@ -107,11 +107,24 @@
                 this.$router.push('/LBase')
             },
             logout(){
+                this.$message("注销成功")
                 this.$router.replace('/')
+                this.$getRepquest("/logout").catch(
+                    resp=>{
+                        window.sessionStorage.setItem("token",null)
+                    }
+                )
             }
+        },
+        mounted() {
+            this.user =JSON.parse(window.sessionStorage.getItem("user"));
+            this.router =JSON.parse(window.sessionStorage.getItem("router"));
+            this.userName =this.user.user.nickName;
         },
         data(){
             return{
+                user:{},
+                router:{},
                 userName:'gengjiaxin',
             }
 
