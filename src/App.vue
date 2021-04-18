@@ -5,7 +5,4 @@
 </template>
 
 <style>
-  #app{
-
-  }
 </style>
