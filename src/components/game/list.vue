@@ -126,7 +126,7 @@
                 v-show="total>0"
                 :total="total"
                 :current-page.sync="queryParams.pageNum"
-                :page-sizes="[10, 20, 30, 40]"
+                :page-sizes="[5, 10, 15, 20]"
                 :page-size.sync="queryParams.pageSize"
                 layout="sizes, prev, pager, next"
                 @size-change="getList"
@@ -264,10 +264,11 @@
                 title:undefined,
                 queryParams:{
                     pageNum: 1,
-                    pageSize: 10,
+                    pageSize: 5,
                     gameCode: undefined,
                     gameName: undefined,
                     gameLable: undefined,
+
 
                 },
                 dateRange:[],
@@ -316,7 +317,7 @@
             resetQuery(){
                 this.queryParams = {
                     pageNum: 1,
-                        pageSize: 10,
+                        pageSize: 5,
                         gameCode: undefined,
                         gameName: undefined,
                         gameLable: undefined,

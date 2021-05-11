@@ -2,26 +2,24 @@
     <div style="text-align: center">
         <span ><el-button @click="GoNews">资讯</el-button> <el-button @click="GoGames">游戏</el-button> <el-button @click="GoNewsMethod()">攻略</el-button> <el-button @click="GoNewsPingjia">测评</el-button> </span>
         <div v-if="news.length>0" style="text-align: left">
-            <el-card v-for="item in news" style="margin-top: 30px;width: 1000px;height: 230px"  v-loading="loading">
-                <div style="width: 650px;height: 200px;float: left">
-                    新闻
+            <el-card v-for="item in news" style="margin-top: 30px;width: 650px;height:150px"  v-loading="loading">
+                <div style="width: 200px;height: 150px;float: left">
+                    新闻资讯
                     <div>
                         <el-link @click="NewsDetail(item)">{{item.title}}</el-link>
-                        <br>
-
                         <br><svg-icon icon-class="eye"></svg-icon> {{item.viewNumber}}
                     </div>
 
 
-                    <div style="margin-top: 50px">
+                    <div style="">
                         {{item.author}}
                     </div>
 
                     <br>
                 </div>
 
-                <div style="float: left;width: 250px;height:230px">
-                    <el-image :src="item.photo"  style="width: 250px;height:180px"></el-image>
+                <div style="float: right">
+                    <el-image :src="item.photo"  style="width: 100px;height:70px"></el-image><br>
                     <svg-icon icon-class="message"></svg-icon>   {{item.commentNumber}} <svg-icon icon-class="date"></svg-icon>{{item.createTime}}
                 </div>
 
@@ -41,26 +39,28 @@
         </div>
 
         <div  v-show="console.length >0"  style="text-align: left">
-            <el-card v-for="item in console" style="margin-top: 30px;width: 1000px;height: 230px"  v-loading="loading">
-                <div style="width: 650px;height: 200px;float: left">
-                    游戏
-                    <div>
-                        <el-link @click="GameDetail(item)">{{item.gameName}}</el-link>
-                        <el-link @click="GameDetail(item)">{{item.gameCode}}</el-link>
-                    </div>
-
-
-                    <div style="margin-top: 50px">
-                        {{item.gameCreater}}
-                    </div>
-
-                    <br>
-                </div>
+            <el-card v-for="item in console" style="margin-top: 30px;width: 600px;height: 230px"  v-loading="loading">
 
                 <div style="float: left;width: 250px;height:230px">
                     <el-image :src="item.gameImage"  style="width: 250px;height:180px"></el-image>
                     <svg-icon icon-class="date"></svg-icon>{{item.gameCreateTime}}
                 </div>
+
+                <div style="width: 200px;height: 200px;float: left;margin-left: 5%">
+                    <div>
+                        <el-link @click="NewsDetail(item)" style="font-size: 20px;color: cadetblue">{{item.gameName}}</el-link><br>
+                        <el-link @click="NewsDetail(item)" style="color: yellow">{{item.gameCode}}</el-link>
+                    </div>
+                    <div >
+                        <div>  <span style="color: #B3C0D1;font-size: 3px">发行商</span>  {{item.gameCreater}}</div>
+                    </div>
+                    <div >
+                        <div>  <span style="color: #B3C0D1;font-size: 3px">发行时间</span>  {{item.gameCreateTime.toString().substring(0,10)}}</div>
+                    </div>
+                    <br>
+                </div>
+
+
 
             </el-card>
 

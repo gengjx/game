@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <el-container style="height: 1200px;width: 100%">
-            <el-header height="100px" class="header">
+    <div style="width: 100%;height: 100%">
+        <el-container style="height: 100%;width: 100%">
+            <el-header  style="width: 100%;height: 100px" class="header">
                 欢迎使用管理后台
                 <div>
                     <el-dropdown>
@@ -15,7 +15,7 @@
                     </el-dropdown>
                 </div>
             </el-header>
-            <el-container>
+            <el-container style="width: 100%;height: 80%">
                 <el-aside width="200px" class="aside">
                     <el-menu  class="el-menu-vertical-demo"
                               router
@@ -35,7 +35,7 @@
 <!--                            </el-submenu>-->
 <!--                        </template>-->
                         <el-menu-item index="/home/index">首页</el-menu-item>
-                        <el-submenu index="1">
+                        <el-submenu index="1" v-show="user.permissions.length>0">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>系统管理模块</span>
@@ -56,10 +56,11 @@
                                     <el-menu-item index="/Log/operLog">操作日志管理</el-menu-item>
                                 </el-menu-item-group>
                             </el-submenu>
+                            <el-menu-item index="/dict/index">参数管理</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
 
-                        <el-submenu index="2">
+                        <el-submenu index="2" v-show="user.permissions.length>0">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
                                 <span>游戏管理模块</span>
@@ -118,10 +119,14 @@
                     userId:undefined,
                     value:undefined,
                 },
+                user:{
+                    permissions:[],
 
+                },
             }
         },
         mounted(){
+            this.user = JSON.parse(window.sessionStorage.getItem("user"))
             this.$router.push('/home/index')
         },
         methods:{
@@ -174,7 +179,6 @@
         font-size: 12px;
     }
     .aside{
-        height: 100%;
         background-color: #545c64;
     }
     .el-menu-vertical-demo{

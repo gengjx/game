@@ -3,26 +3,28 @@
         <h1 style="color: white">游戏模块</h1>
 
         <div style="float: left" >
-            <el-card v-for="item in Consoles" style="margin-top: 30px;width: 1000px;height: 230px"  v-loading="loading">
-                <div style="width: 650px;height: 200px;float: left">
-                    游戏
-                    <div>
-                        <el-link @click="NewsDetail(item)">{{item.gameName}}</el-link>
-                        <el-link @click="NewsDetail(item)">{{item.gameCode}}</el-link>
-                    </div>
-
-
-                    <div style="margin-top: 50px">
-                        {{item.gameCreater}}
-                    </div>
-
-                    <br>
-                </div>
+            <el-card v-for="item in Consoles" style="margin-top: 30px;width: 600px;height: 230px"  v-loading="loading">
 
                 <div style="float: left;width: 250px;height:230px">
                     <el-image :src="item.gameImage"  style="width: 250px;height:180px"></el-image>
-                     <svg-icon icon-class="date"></svg-icon>{{item.gameCreateTime}}
+                    <svg-icon icon-class="date"></svg-icon>{{item.gameCreateTime}}
                 </div>
+
+                <div style="width: 200px;height: 200px;float: left;margin-left: 5%">
+                    <div>
+                        <el-link @click="NewsDetail(item)" style="font-size: 20px;color: cadetblue">{{item.gameName}}</el-link><br>
+                        <el-link @click="NewsDetail(item)" style="color: yellow">{{item.gameCode}}</el-link>
+                    </div>
+                    <div >
+                        <div>  <span style="color: #B3C0D1;font-size: 3px">发行商</span>  {{item.gameCreater}}</div>
+                    </div>
+                    <div >
+                        <div>  <span style="color: #B3C0D1;font-size: 3px">发行时间</span>  {{item.gameCreateTime.toString().substring(0,10)}}</div>
+                    </div>
+                    <br>
+                </div>
+
+
 
             </el-card>
 
@@ -67,15 +69,18 @@
         methods:{
             getList(){
                 this.loading =true;
-                this.$getRepquest("/console/list/",this.queryParams).then(
-                    response=>{
-                        if (response){
-                            this.Consoles =  response.rows;
-                            this.total =response.total
-                            this.loading =false;
+                setTimeout(()=>{
+                    this.$getRepquest("/console/list/",this.queryParams).then(
+                        response=>{
+                            if (response){
+                                this.Consoles =  response.rows;
+                                this.total =response.total
+                                this.loading =false;
+                            }
                         }
-                    }
-                )
+                    )
+                },300)
+
             },
             NewsDetail(row){
                 window.sessionStorage.setItem("gameform",null);

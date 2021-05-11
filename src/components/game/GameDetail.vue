@@ -37,13 +37,18 @@
                 开发商:{{form.gameCreater}}<br>
                 发行商:{{form.gameCreater}}<br>
                 <el-button @click="dialogVisible = true" v-show="item.createtime == undefined" >打分与点评</el-button>
+                <h1>俱乐部  <el-link @click="julebu">更多</el-link></h1>
                 <el-card v-show="item.createtime !=undefined" style="text-align: left">
                              <span >
                     <el-avatar :src="item.photo" v-show="item.photo !=null"></el-avatar>{{item.nickname}}
                     <el-tag  v-show="item.gametype !=null"> {{item.gametype}} </el-tag>
                     <el-tag  v-show="item.grade !=null" > {{item.grade}} </el-tag>
-                    <el-tag  v-show="item.createtime !=null" > {{item.createtime}} </el-tag>
-                    <el-button @click="edit"> 修改</el-button>
+                    <el-tag  v-show="item.createtime !=null" > {{item.createtime}} </el-tag><br>
+                    <span>
+                            <el-button @click="edit"> 修改</el-button>
+                            <el-button @click="delping(item)"> 删除</el-button>
+                    </span>
+
                 </span>
                     <div v-show="item.content !=undefined">
                         <el-card style="width:300px;height: 130px">
@@ -54,7 +59,33 @@
             </div>
             <br>
             <br>
+            <div    v-show="data!=null &&data.length>0" style="text-align: left;">
+                价格趋势图:<br>
+                $: {{currentInfo.value}}RMB
+            </div>
 
+            <TrendChart
+                    v-show="data!=null &&data.length>0"
+                    @mouse-move="onMouseMove"
+                    :datasets="[
+                 {
+                    data,
+                    smooth: true,
+                    fill: true,
+                    showPoints:true
+                 }
+                 ]"
+                    :grid="{
+                    verticalLines: true,
+                    horizontalLines: true
+                 }"
+                    :min="0"
+                    :interactive="true"
+                    :labels="{
+                        xLabels
+                    }"
+            >
+            </TrendChart>
             <div style="text-align: left;float: left">
                 <h1>编辑的话</h1>
                 适当娱乐,学业和生活同样重要
@@ -70,8 +101,43 @@
 
         </el-card>
 
+        <div style="text-align: left;color: white">
+            <h1 style="font-size: 60px">新闻资讯:</h1>
+        </div>
 
-        <div style="text-align: left">
+        <div v-show="News.length <=0">
+            <el-card>
+                <div style="color: chartreuse">暂无资讯</div>
+            </el-card>
+
+        </div>
+        <div>
+            <el-card v-for="item in News" style="margin-top: 30px;width: 1000px;height:150px"  v-loading="loading">
+                <div style="width: 200px;height: 150px;float: left">
+                    新闻资讯
+                    <div>
+                        <el-link @click="NewsDetail(item)">{{item.title}}</el-link>
+                        <br><svg-icon icon-class="eye"></svg-icon> {{item.viewNumber}}
+                    </div>
+
+
+                    <div style="">
+                        {{item.author}}
+                    </div>
+
+                    <br>
+                </div>
+
+                <div style="float: right">
+                    <el-image :src="item.photo"  style="width: 100px;height:70px"></el-image><br>
+                    <svg-icon icon-class="message"></svg-icon>   {{item.commentNumber}} <svg-icon icon-class="date"></svg-icon>{{item.createTime}}
+                </div>
+
+            </el-card>
+        </div>
+
+
+        <div style="text-align: left;color: white">
             <h1 style="font-size: 60px">玩家点评:</h1>
         </div>
 
@@ -82,6 +148,9 @@
                     <el-tag  v-show="item.gametype !=null"> {{item.gametype}} </el-tag>
                     <el-tag  v-show="item.grade !=null" > {{item.grade}} </el-tag>
                     <el-tag  v-show="item.createtime !=null" > {{item.createtime}} </el-tag>
+          点赞数:<el-tag  v-show="item.likeNumber != null">{{item.likeNumber}}</el-tag>
+                评论数<el-tag  v-show="item.commentNumber != null">{{item.commentNumber}}</el-tag>
+                    <el-button @click="commentDetail(item)">详情查看</el-button>
                 </span>
                 <div>
                     <el-card style="width: 600px;height: 130px">
@@ -108,7 +177,6 @@
         <el-dialog title="点评打分" style="text-align: left"
                    :visible.sync="dialogVisible"
         >
-            {{form2}}
             <div>
                 <el-avatar :src="this.form2.photo"></el-avatar> {{this.form2.nickname}}
                 <div  style="width: 40% ;height: 15%;" >
@@ -158,7 +226,8 @@
                     pageNum:1,
                     pageSize:10,
                     consoleid:undefined,
-                    userid:undefined
+                    userid:undefined,
+                    parentId:0,
                 },
                 total:undefined,
                 form2:{
@@ -170,7 +239,9 @@
                     photo:undefined,
                     userid:undefined,
                     grade:undefined,
-                    gametype:undefined
+                    gametype:undefined,
+                    gameGrade:'',
+                    parentId: 0
                 },
                 UserNotes:{
                     id:undefined,
@@ -194,14 +265,60 @@
                     consoleid:undefined,
                     userid:undefined
                 },
+                currentInfo:{
+                    label:undefined,
+                    value:undefined
+                },
+                sort:[
 
+                ],
+                data :[70, 100, 400, 180, 100],
+                xLabels: ["Mon", "Tue", "Wed", "Thu"],
+                News:[],
 
             }
         },
         methods:{
+            julebu(){
+                this.$router.push('/JuLeBu')
+                window.sessionStorage.setItem("form",JSON.stringify(this.form))
+            },
+            commentDetail(item){
+                window.sessionStorage.setItem("commentDeatail",JSON.stringify(item))
+                this.$router.push('/CommentSearch')
+            },
+            onMouseMove(params) {
+                console.log(params)
+                if (!params) {
+                    this.currentInfo = null;
+                    return;
+                }
+                this.currentInfo = {
+                    value: params.data[0]
+                }
+            },
             edit(){
                 this.form2 = this.item,
                 this.dialogVisible =true
+            },
+            delping(item){
+                if (item.id != null){
+                    alert(item.id)
+                    this.$confirm("确定删除自己的评论记录吗","提示",{
+                        confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                    }).then(()=>{
+                        this.$deleteRequest('/consolecomment/'+item.id).then(response=>{
+                            if (response){
+                                this.item ={};
+                                this.item.createtime = undefined;
+                                this.getList()
+                            }
+                        })
+
+                    })
+                }
             },
             formatTooltip(val) {
                 return val / 10;
@@ -255,6 +372,7 @@
                     this.$postRequest('/consolecomment',this.form2).then(response=>{
                         if (response){
                             this.getList()
+                            this.getComment();
                         }
                     })
                 }
@@ -294,6 +412,35 @@
                         }
                     }
                 })
+            },
+            NewsDetail(row){
+                this.$postRequest("/news/add/"+row.id).then()
+                window.sessionStorage.setItem("form",JSON.stringify(row));
+                let query={
+                    newsid:row.id,
+                    pageNum: 1,
+                    pageSize: 10,
+                }
+                this.$getRepquest('/newscomment/list',query).then( response=>{
+                    if (response){
+                        window.sessionStorage.setItem("comment",JSON.stringify(response.rows));
+                        this.$router.replace('/News/NewDetail')
+                    }
+                })
+            },
+            getComment(){
+                this.item = [],
+                this.queryParams1.userid = this.form2.userid
+                this.queryParams1.consoleid = this.form2.consoleid
+                this.$getRepquest('/consolecomment/list',this.queryParams1).then( response=>{
+                    if (response){
+                        if (response.rows != null &&response.rows.length>0){
+                            this.item = response.rows[0];
+                            this.queryParams1.userid =undefined;
+                        }
+
+                    }
+                })
             }
         },
 
@@ -302,7 +449,13 @@
             this.comments = [];
             this.imageList= [];
             this.form =JSON.parse(window.sessionStorage.getItem("gameform"));
-            console.log(this.form)
+            if (this.form.gameGrade != ''&& this.form.gameGradeNumber != null){
+                this.form.gameGrade = this.form.gameGrade.substring(0,3);
+            }
+            else {
+                this.form.gameGrade = 0;
+                this.form.gameGradeNumber = 0;
+            }
             this.queryParams.consoleid = this.form.gameId
             this.getList()
             this.user =JSON.parse(window.sessionStorage.getItem("user"));
@@ -356,17 +509,51 @@
                 }
             });
 
-            this.queryParams1.userid = this.form2.userid
-            this.queryParams1.consoleid = this.form2.consoleid
-            this.$getRepquest('/consolecomment/list',this.queryParams1).then( response=>{
-                if (response){
-                    if (response.rows.length>0){
-                        this.item = response.rows[0];
-                        this.queryParams.userid =undefined;
-                    }
+            // this.queryParams1.userid = this.form2.userid
+            // this.queryParams1.consoleid = this.form2.consoleid
+            // this.$getRepquest('/consolecomment/list',this.queryParams1).then( response=>{
+            //     if (response){
+            //         if (response.rows != null &&response.rows.length>0){
+            //             this.item = response.rows[0];
+            //             this.queryParams1.userid =undefined;
+            //         }
+            //
+            //     }
+            // })
+            this.getComment();
+            let query1={
+                pageNum:1,
+                pageSize:7,
+                gameid : this.form2.consoleid
+            }
+            this.$getRepquest('/GamePrice/list',query1).then(
+                response=>{
+                    if (response){
+                        console.log(response)
+                        this.sort = response.sort
+                        console.log(this.sort)
+                        this.data=[]
+                        for (let i= 0 ;i<this.sort.length ;i++){
+                            this.data[i]=this.sort[i].value;
+                            this.xLabels[i] = this.sort[i].time;
+                        }
 
+                    }
                 }
-            })
+            );
+            let query2={
+                pageNum:1,
+                pageSize:3,
+                gameName : this.form.gameName
+            }
+            this.News =[]
+            this.$getRepquest('/news/list/',query2).then(
+                response=>{
+                    if (response && response.rows !=[]){
+                        this.News = response.rows;
+                    }
+                }
+            );
 
 
         }

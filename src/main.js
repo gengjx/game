@@ -13,8 +13,9 @@ import VueQuillEditor  from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import TrendChart from "vue-trend-chart";
 
-
+Vue.use(TrendChart);
 Vue.use(VueQuillEditor);
 //全局定义文本框的功能和文字提示
 const toolbarOptions = [

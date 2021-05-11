@@ -1,19 +1,19 @@
 <template>
     <div class="a" >
-        <el-container  style="height: 1200px;width: 100%">
-            <el-header style="height: 5%">
-                <div   class="t" style="height: 100%" >
+        <el-container  style="height: 100%;width: 100%;position: fixed">
+            <el-header style="height: 5%;width: 100%">
+                <div   class="t" style="height: 100%;width: 100%" >
                     <span style="margin-top: 20%">小耿商城  网站功能反馈QQ号1335339044 </span>
                     <span style="margin-left: 100px">
                                     <el-dropdown >
-                        <span style="color:white;font-size:18px">导航</span>
+                        <span style="color:white">导航</span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="GoBase">主页</el-dropdown-item>
-                            <el-dropdown-item @click.native="update">推荐</el-dropdown-item>
+                            <el-dropdown-item @click.native="Tuijian">推荐</el-dropdown-item>
                         </el-dropdown-menu>
                  </el-dropdown>
                  <el-dropdown >
-                        <span style="color:white;font-size:18px;margin-left: 15px">攻略测评</span>
+                        <span style="color:white;margin-left: 15px">攻略测评</span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="GoGameMethod">游戏攻略</el-dropdown-item>
                             <el-dropdown-item @click.native="GoGameCheck">游戏测评</el-dropdown-item>
@@ -21,9 +21,15 @@
                  </el-dropdown>
 
                  <el-dropdown >
-                        <span style="color:white;font-size:18px;margin-left: 15px">新闻资讯</span>
+                        <span style="color:white;margin-left: 15px">新闻资讯</span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="GoGameNews">新闻资讯</el-dropdown-item>
+                        </el-dropdown-menu>
+                 </el-dropdown>
+                 <el-dropdown >
+                        <span style="color:white;margin-left: 15px">俱乐部</span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item @click.native="GoJuLEBu">俱乐部</el-dropdown-item>
                         </el-dropdown-menu>
                  </el-dropdown>
 
@@ -31,7 +37,7 @@
                     </span>
 
                     <span style="float: right">
-                        <el-image  style="width: 10%;height: 10%;float: right;" :src="require('../../../assets/index.jpg')"> </el-image>
+                        <el-image  style="width: 5%;height: 5%;float: right;" :src="require('../../../assets/index.jpg')"> </el-image>
                         <el-dropdown style="float: right;margin-right: 30px">
                             <span style="color:white;font-size:18px;">{{userName}}</span>
                         <el-dropdown-menu slot="dropdown">
@@ -48,7 +54,7 @@
             <el-main style="height: 75%" >
                 <router-view></router-view>
             </el-main>
-            <el-footer style="height: 20%;width: 100%;padding-bottom: 0%" >
+            <el-footer style="height: 20%;width: 100%;" >
                 <div style="float: left;width: 20%; color: white">
                     <el-image :src="require('../../../assets/index.jpg')" style="height: 10%;float: left;width: 30%;margin-top: 5%"></el-image>
                     <br>
@@ -118,9 +124,7 @@
             },
             GoSearch(){
                 window.sessionStorage.setItem("content",JSON.stringify(this.content))
-                this.$router.push("/Information").then(
-                    this.$router.push('/SearchIndex')
-                )
+                this.$router.push("/go")
 
             },
             GoInformation(){
@@ -129,6 +133,9 @@
             GoBase(){
                 this.$router.push('/LBase')
                 location.reload();
+            },
+            Tuijian(){
+                this.$router.push('/Tuijian')
             },
             logout(){
                 this.$router.replace('/')
@@ -152,6 +159,9 @@
             },
             GoShoucang(){
                 this.$router.replace('/MyFavorite')
+            },
+            GoJuLEBu(){
+                this.$router.replace('/JuLeBuIndex')
             }
         },
         mounted() {

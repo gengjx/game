@@ -28,6 +28,9 @@
                 <span >
                     <el-avatar :src="item.photo" ></el-avatar>{{item.nickname}}
                     <el-tag  v-show="item.createtime !=null" > {{item.createtime}} </el-tag>
+                    点赞数:<el-tag  v-show="item.likeNumber != null">{{item.likeNumber}}</el-tag>
+                    评论数<el-tag  v-show="item.commentNumber != null">{{item.commentNumber}}</el-tag>
+                     <el-button @click="commentDetail(item)">详情查看</el-button>
                 </span>
                 <div>
                     <el-card style="width: 600px;height: 130px">
@@ -104,6 +107,9 @@
                         this.total = response.total;
                     }
                 })
+            },
+            commentDetail(item){
+                this.$confirm("请先登录使用更多功能","提示")
             }
         }
     }

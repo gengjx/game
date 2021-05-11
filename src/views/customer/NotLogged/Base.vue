@@ -1,17 +1,16 @@
 <template>
     <div class="a" >
-        <el-container  style="height: 1200px;width: 100%">
-            <el-header style="height: 5%">
-                <div   class="t"  >
-                   <span style="margin-top: 20%">小耿商城  网站功能反馈QQ号1335339044 </span>
+        <el-container  style="height: 100%;width: 100%;position: fixed">
+            <el-header style="height: 5%;width: 100%">
+                <div  >
+                   <span style="">小耿商城  网站功能反馈QQ号1335339044 </span>
                     <span style="margin-left: 100px">
-
 
                  <el-dropdown >
                         <span style="color:white;font-size:18px">导航</span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="GoBase">主页</el-dropdown-item>
-                            <el-dropdown-item @click.native="update">推荐</el-dropdown-item>
+                            <el-dropdown-item @click.native="Tuijian">推荐</el-dropdown-item>
                         </el-dropdown-menu>
                  </el-dropdown>
                  <el-dropdown >
@@ -38,12 +37,10 @@
                 </div>
             </el-header>
 
-            <el-main style="height: 75%" >
+            <el-main style="height: 75%;width: 100%" >
                 <router-view></router-view>
-
-
             </el-main>
-            <el-footer style="height: 20%;width: 100%" >
+            <el-footer style="height:20%;width: 100%" >
                 <div style="float: left;width: 20%; color: white">
                     <el-image :src="require('../../../assets/index.jpg')" style="height: 10%;float: left;width: 30%;margin-top: 20px"></el-image>
                     <br>
@@ -116,6 +113,9 @@
                 this.$router.replace("/");
                 location.reload();
             },
+            Tuijian(){
+                this.$confirm("你还没有登录无法享受推荐功能","提示")
+            },
             Goto(){
                 this.$router.replace('/Alogin')
             },
@@ -141,7 +141,7 @@
 
 <style scoped>
     .a{
-        height: 1200px;
+        height: 100%;
         width: 100%;
     }
     .el-header, .el-footer {
@@ -162,10 +162,6 @@
         background-color: #21262A;
         color: #333;
         line-height: 25px;
-    }
-
-    body > .el-container {
-        margin-bottom: 5px;
     }
 
     .el-container:nth-child(5) .el-aside,

@@ -3,26 +3,24 @@
         <h1 style="color: white">游戏新闻模块</h1>
 
         <div style="float: left" >
-            <el-card v-for="item in News1" style="margin-top: 30px;width: 1000px;height: 230px"  v-loading="loading">
-                <div style="width: 650px;height: 200px;float: left">
+            <el-card v-for="item in News1" style="margin-top: 30px;width: 650px;height:150px"  v-loading="loading">
+                <div style="width: 200px;height: 150px;float: left">
                     新闻资讯
                     <div>
                         <el-link @click="NewsDetail(item)">{{item.title}}</el-link>
-                        <br>
-
                         <br><svg-icon icon-class="eye"></svg-icon> {{item.viewNumber}}
                     </div>
 
 
-                    <div style="margin-top: 50px">
+                    <div style="">
                         {{item.author}}
                     </div>
 
                     <br>
                 </div>
 
-                <div style="float: left;width: 250px;height:230px">
-                    <el-image :src="item.photo"  style="width: 250px;height:180px"></el-image>
+                <div style="float: right">
+                    <el-image :src="item.photo"  style="width: 100px;height:70px"></el-image><br>
                     <svg-icon icon-class="message"></svg-icon>   {{item.commentNumber}} <svg-icon icon-class="date"></svg-icon>{{item.createTime}}
                 </div>
 

@@ -34,6 +34,7 @@
                 游戏平台: <el-tag v-for="item in platform" v-show="item != null && item !=''">{{item}}</el-tag> <br>
                 开发商:{{form.gameCreater}}<br>
                 发行商:{{form.gameCreater}}<br>
+                <h1>俱乐部  <el-link @click="julebu">更多</el-link></h1>
             </div>
             <br>
             <br>
@@ -52,6 +53,39 @@
 
 
         </el-card>
+        <div style="text-align: left;color: white">
+            <h1 style="font-size: 60px">新闻资讯:</h1>
+        </div>
+        <div v-show="News.length <=0">
+            <el-card>
+                <div style="color: chartreuse">暂无资讯</div>
+            </el-card>
+
+        </div>
+        <div>
+            <el-card v-for="item in News" style="margin-top: 30px;width: 1000px;height:150px"  v-loading="loading">
+                <div style="width: 200px;height: 150px;float: left">
+                    新闻资讯
+                    <div>
+                        <el-link @click="NewsDetail(item)">{{item.title}}</el-link>
+                        <br><svg-icon icon-class="eye"></svg-icon> {{item.viewNumber}}
+                    </div>
+
+
+                    <div style="">
+                        {{item.author}}
+                    </div>
+
+                    <br>
+                </div>
+
+                <div style="float: right">
+                    <el-image :src="item.photo"  style="width: 100px;height:70px"></el-image><br>
+                    <svg-icon icon-class="message"></svg-icon>   {{item.commentNumber}} <svg-icon icon-class="date"></svg-icon>{{item.createTime}}
+                </div>
+
+            </el-card>
+        </div>
         <div style="text-align: left">
             <h1 style="font-size: 60px">玩家点评:</h1>
         </div>
@@ -68,6 +102,8 @@
                     <el-tag  v-show="item.gametype !=null"> {{item.gametype}} </el-tag>
                     <el-tag  v-show="item.grade !=null" > {{item.grade}} </el-tag>
                     <el-tag  v-show="item.createtime !=null" > {{item.createtime}} </el-tag>
+                     点赞数:<el-tag  v-show="item.likeNumber != null">{{item.likeNumber}}</el-tag>
+                评论数<el-tag  v-show="item.commentNumber != null">{{item.commentNumber}}</el-tag>
                 </span>
                 <div>
                     <el-card style="width: 600px;height: 130px">
@@ -101,11 +137,16 @@
                     pageSize:10,
                     consoleid:undefined,
                     userid:undefined
+
                 },
+                News:[],
             }
         },
         methods:{
-
+            julebu(){
+                this.$router.push('/JuLeBuNot')
+                window.sessionStorage.setItem("form",JSON.stringify(this.form))
+            },
             platfromtter(row,gameOperatorType){
                 let  t =[];
                 t= gameOperatorType.toString().split(',');
@@ -134,6 +175,15 @@
             this.imageList= [];
             this.form =JSON.parse(window.sessionStorage.getItem("gameform"));
             console.log(this.form)
+            if (this.form.gameGrade != ''&& this.form.gameGradeNumber != null){
+                this.form.gameGrade = this.form.gameGrade.substring(0,3);
+            }
+            else {
+                this.form.gameGrade =0;
+                this.form.gameGradeNumber =0;
+            }
+
+            console.log(this.form)
             this.comments =JSON.parse(window.sessionStorage.getItem("gamecomment"));
             console.log(this.comments)
             this.imgList = JSON.parse(window.sessionStorage.getItem("imageList"));
@@ -159,6 +209,19 @@
                 }
 
             });
+            let query2={
+                pageNum:1,
+                pageSize:3,
+                gameName : this.form.gameName
+            }
+            this.News =[]
+            this.$getRepquest('/news/list/news',query2).then(
+                response=>{
+                    if (response && response.rows !=[]){
+                        this.News = response.rows;
+                    }
+                }
+            );
 
         }
     }

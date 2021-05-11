@@ -38,6 +38,15 @@ import GameList from '../views/customer/Logged/GameList';
 import GameListNot from  '../views/customer/NotLogged/GameList'
 import MyFavorite from "../views/customer/Logged/MyFavorite";
 import SearchIndex from "../views/customer/Logged/SearchIndex";
+import CommentSearch from '../components/game/CommentSearch'
+import NewsCommentSearch from '../components/News/NewsCommentSearch'
+import Tuijian from "../views/customer/Logged/Tuijian";
+import go from "../views/customer/Logged/go";
+import JuLeBu from "../components/game/JuLeBu";
+import JuLeBuNot from "../components/game/JuLeBuNot";
+import JuLeBuIndex from "../views/customer/Logged/JuLeBuIndex";
+import Dict from '../components/dict/index'
+import Data from '../components/dict/data'
 Vue.use(VueRouter)
 const routes = [
   {
@@ -92,6 +101,11 @@ const routes = [
         path: '/GameListNot',
         name: GameListNot,
         component: GameListNot
+      },
+      {
+        path: '/JuLeBuNot',
+        name: JuLeBuNot,
+        component: JuLeBuNot
       }
     ]
   },
@@ -141,10 +155,37 @@ const routes = [
         path: '/MyFavorite',
         name: MyFavorite,
         component: MyFavorite
-      },{
+      }
+      ,{
         path: '/SearchIndex',
         name: SearchIndex,
         component: SearchIndex,
+      }
+      ,{
+        path: '/CommentSearch',
+        name: CommentSearch,
+        component: CommentSearch
+      },{
+        path: '/NewsCommentSearch',
+        name: NewsCommentSearch,
+        component: NewsCommentSearch
+      },{
+        path: '/Tuijian',
+        name: Tuijian,
+        component: Tuijian
+      },{
+        path: '/go',
+        name: go,
+        component: go
+      },{
+        path: '/JuLeBu',
+        name: JuLeBu,
+        component: JuLeBu
+
+      },{
+        path: '/JuLeBuIndex',
+        name: JuLeBuIndex,
+        component: JuLeBuIndex,
       }
 
     ]
@@ -225,6 +266,15 @@ const routes = [
         path: '/console/comment/index',
         name: ConsoleCommentindex,
         component: ConsoleCommentindex
+      },{
+        path: '/dict/index',
+        component: Dict,
+        name: Dict
+      },
+      ,{
+        path: '/dict/type/data/',
+        component: Data,
+        name: Data
       }
     ]
   }

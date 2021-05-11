@@ -4,7 +4,7 @@
 
             <div class="loginForm" style="margin-left: 15%;width: 30%;height: 50%">
                     <b ><h1 style="text-align: center ;color: beige;font-size: 55px">登录</h1></b>
-                    <el-image :src="Src"></el-image>
+                    <el-image :src="require('../../../assets/header.jpg')"></el-image>
                     <el-form  :model="loginForm" ref="loginForm" :rules="rules"  >
                         <el-form-item prop="username" label="用户名"  style="width:100%">
                             <el-input  v-model="loginForm.username" icon="el-icon-user-solid"></el-input>
@@ -29,13 +29,13 @@
 
             </div >
 
-            <div  class="TForm" style="text-align: center">
-                <div style="margin-top: 5%">
+            <div  class="TForm" style="text-align: center;height:55%;margin-top: 5%;width: 30%">
+                <div >
                     加入 GGame，探索数千款精彩游戏。<br>
                     了解更多<br>
                 </div>
 
-                <el-image :src="join_pc" style="height: 30%"></el-image><br>
+                <el-image :src="require('../../../assets/join_pc.png')" style="width: 70%"></el-image><br>
                 免费加入且简单易用<br>
                 <el-button @click="regist">加入我们</el-button>
 

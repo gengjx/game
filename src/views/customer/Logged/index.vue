@@ -4,9 +4,9 @@
         <div>
             <h1 style="color:white">游戏推荐</h1>  <el-link @click="GoGameList">更多速看</el-link>
             <el-row>
-                <el-col :span="4" v-for="item in Consoles"  >
-                    <el-card :body-style="{ padding: '0px'}" style="width: 300px;height: 250px;margin-top: 15px" >
-                        <img :src="item.gameImage" style="width: 300px;height: 150px">
+                <el-col :span="3" v-for="item in Consoles"  >
+                    <el-card v-loading="loading" :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
+                        <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
                         <div style="padding: 14px;">
                             <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                             <b> {{item.gameCode}}</b><br>
@@ -21,14 +21,14 @@
             <h1 style="color: white">新闻资讯</h1>  <el-link @click="GoGameNews">更多速看</el-link>
             <el-row>
                 <el-col :span="7" v-for="item1 in News0" >
-                    <el-card  style="width: 600px;height: 200px" >
-                        <div style="height: 200px;float: left;width: 300px">
+                    <el-card  style="width: 500px;height: 150px"  v-loading="loading">
+                        <div style="height: 150px;float: left;width: 300px">
                             <b> <el-link @click="NewsDetail(item1)" >{{ item1.title}}</el-link></b><br>
                             <b> 作者:{{item1.author}}</b><br>
                             发布时间:{{item1.createTime}}
                         </div>
-                        <div style="float: left;width: 200px;height: 200px;margin-left: 15px">
-                            <el-avatar :src="item1.photo" style="height: 150px;width: 150px" ></el-avatar>
+                        <div style="float: left;width: 75px;height: 75px;margin-left: 50px">
+                            <el-avatar :src="item1.photo" style="height: 75px;width: 75px" ></el-avatar>
                         </div>
 
 
@@ -42,14 +42,14 @@
             <h1 style="color: white">攻略实战</h1>   <el-link @click="GoGameMethod" >更多速看</el-link>
             <el-row>
                 <el-col :span="7" v-for="item1 in News1" >
-                    <el-card  style="width: 600px;height: 200px" >
-                        <div style="height: 200px;float: left;width: 300px">
+                    <el-card  style="width: 500px;height: 150px"  v-loading="loading">
+                        <div style="height: 150px;float: left;width: 300px">
                             <b> <el-link @click="NewsDetail(item1)" >{{ item1.title}}</el-link></b><br>
                             <b> 作者:{{item1.author}}</b><br>
                             发布时间:{{item1.createTime}}
                         </div>
-                        <div style="float: left;width: 200px;height: 200px;margin-left: 15px">
-                            <el-avatar :src="item1.photo" style="height: 150px;width: 150px" ></el-avatar>
+                        <div style="float: left;width: 75px;height: 75px;margin-left: 50px">
+                            <el-avatar :src="item1.photo" style="height: 75px;width: 75px" ></el-avatar>
                         </div>
 
 
@@ -63,14 +63,14 @@
             <h1 style="color: white">玩家点评</h1>   <el-link @click="GoGameCheck">更多速看</el-link>
             <el-row>
                 <el-col :span="7" v-for="item1 in News2" >
-                    <el-card  style="width: 600px;height: 200px" >
-                        <div style="height: 200px;float: left;width: 300px">
+                    <el-card  style="width: 500px;height: 150px" v-loading="loading" >
+                        <div style="height: 150px;float: left;width: 300px">
                             <b> <el-link @click="NewsDetail(item1)" >{{ item1.title}}</el-link></b><br>
                             <b> 作者:{{item1.author}}</b><br>
                             发布时间:{{item1.createTime}}
                         </div>
-                        <div style="float: left;width: 200px;height: 200px;margin-left: 15px">
-                            <el-avatar :src="item1.photo" style="height: 150px;width: 150px" ></el-avatar>
+                        <div style="float: left;width: 75px;height: 75px;margin-left: 50px">
+                            <el-avatar :src="item1.photo" style="height: 75px;width: 75px" ></el-avatar>
                         </div>
 
 
@@ -90,6 +90,7 @@
                 News0:[],
                 News1:[],
                 News2:[],
+                loading:false
 
             }
 
@@ -160,9 +161,10 @@
             }
         },
         mounted() {
+            this.loading =true
             let queryParams={
                 pageNum: 1,
-                pageSize: 5,
+                pageSize: 6,
                 gameCode: undefined,
                 gameName: undefined,
                 gameLable: undefined,
@@ -178,14 +180,14 @@
 
             let queryParams1={
                 pageNum: 1,
-                pageSize: 5,
+                pageSize: 8,
                 categoryId:0,
 
             };
 
             let queryParams2={
                 pageNum: 1,
-                pageSize: 5,
+                pageSize: 8,
                 categoryId:1,
 
             };
@@ -193,7 +195,7 @@
 
             let queryParams3={
                 pageNum: 1,
-                pageSize: 5,
+                pageSize: 8,
                 categoryId:2,
 
             };
@@ -205,7 +207,6 @@
                 }
             )
 
-            queryParams1.categoryId =1;
             this.$getRepquest("/news/list",queryParams3).then(
                 response=>{
                     if (response){
@@ -214,11 +215,11 @@
                 }
             )
 
-            queryParams1.categoryId =2;
             this.$getRepquest("/news/list",queryParams2).then(
                 response=>{
                     if (response){
                         this.News2 =  response.rows;
+                        this.loading =false
                     }
                 }
             )
