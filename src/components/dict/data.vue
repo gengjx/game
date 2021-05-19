@@ -212,10 +212,13 @@ export default {
   methods: {
     /** 查询字典类型详细 */
     getType(dictId) {
-      this.$getRepquest('/system/dict/data/'+dictId).then(response => {
-        this.queryParams.dictType = response.data.dictType;
-        this.defaultDictType = response.data.dictType;
-        this.getList();
+      this.$getRepquest('/system/dict/type/'+dictId).then(response => {
+        if (response){
+          this.queryParams.dictType = response.data.dictType;
+          this.defaultDictType = response.data.dictType;
+          this.getList();
+        }
+
       });
     },
     /** 查询字典类型列表 */
@@ -313,11 +316,10 @@ export default {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
-        }).then(function() {
-          return delData(dictCodes);
+        }).then(()=> {
+          this.$deleteRequest('/system/dict/data/'+dictCodes);
         }).then(() => {
           this.getList();
-          this.msgSuccess("删除成功");
         })
     },
   }

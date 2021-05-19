@@ -303,7 +303,6 @@
             },
             delping(item){
                 if (item.id != null){
-                    alert(item.id)
                     this.$confirm("确定删除自己的评论记录吗","提示",{
                         confirmButtonText: '确定',
                             cancelButtonText: '取消',

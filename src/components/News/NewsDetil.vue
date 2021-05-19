@@ -53,6 +53,7 @@
                     <el-tag  v-show="item.createtime !=null" > {{item.createtime}} </el-tag>
                     点赞数:<el-tag  v-show="item.likeNumber != null">{{item.likeNumber}}</el-tag>
                     评论数<el-tag  v-show="item.commentNumber != null">{{item.commentNumber}}</el-tag>
+                     <el-button @click="deleteComment(item)" v-show="form.userId == user.user.userId">删除评论</el-button>
                     <el-button @click="commentDetail(item)">详情查看</el-button>
                 </span>
                 <div>
@@ -176,6 +177,16 @@
         methods:{
             edit(){
                 this.open = true
+            },
+            deleteComment(item){
+                this.$deleteRequest('/newscomment/'+this.item.id).then(
+                    response=>{
+                        if (response){
+                            this.getList()
+                        }
+                    }
+                )
+
             },
             handlerEdit(){
                 this.open = false

@@ -2,7 +2,7 @@
     <div>
         <div style="width: 30%;float: left;height: 100%">
             <h1 style="color: white">模块推荐</h1>
-            <el-card v-for="item in consoles" >
+            <el-card v-for="item in consoless"  v-loading="loading">
                     <el-image :src="item.gameImage" style="width:30%;height: 5%;float: left" @click="julebu(item)" ></el-image>
                     <div style="float: left">
 
@@ -13,6 +13,18 @@
 
                     </div>
             </el-card>
+
+            <el-pagination
+                    v-show="total1>0"
+                    :total="total1"
+                    :current-page.sync="queryParams1.pageNum"
+                    :page-sizes="[5, 10, 15, 20]"
+                    :page-size.sync="queryParams1.pageSize"
+                    layout="sizes, prev, pager, next"
+                    @size-change="getList1"
+                    @current-change="getList1"
+                    style="margin-top: 20px"
+            ></el-pagination>
         </div>
         <div style="float: left;width: 70%">
             <el-card  style="width: 60%;margin-left: 20%"  v-loading="loading">
@@ -205,10 +217,19 @@
                     author: undefined,
                     categoryId:undefined
                 },
+                queryParams1:{
+                    pageNum: 1,
+                    pageSize: 10,
+                    title: undefined,
+                    author: undefined,
+                    categoryId:undefined
+                },
                 list:[],
                 total:0,
                 loading:false,
                 consoles:[],
+                consoless:[],
+                total1:0,
             }
         },
         mounted() {
@@ -228,10 +249,20 @@
                 pageSize: 10,
 
             };
-            this.$getRepquest('/console/list',query).then(
+
+            this.$getRepquest('/console/list').then(
                 response=>{
                     if (response){
                         this.consoles = response.rows
+                        this.total1 = response.total;
+                    }
+                }
+            )
+
+            this.$getRepquest('/console/list',query).then(
+                response=>{
+                    if (response){
+                        this.consoless = response.rows
                     }
                 }
             )
@@ -248,6 +279,18 @@
                         if (response){
                             this.list = response.rows;
                             this.total = response.total;
+                            this.loading = false
+                        }
+                    }
+                )
+            },
+            getList1(){
+                this.loading = true
+                this.$getRepquest('/console/list').then(
+                    response=>{
+                        if (response){
+                            this.consoles = response.rows;
+                            this.total1 = response.total;
                             this.loading = false
                         }
                     }
@@ -448,10 +491,18 @@
                     ).then(
                         ()=>{
                             this.form.tags =this.form.abstrs = this.form.title
+                            this.form.userId = this.user.userId
                             this.form.createTime = new Date(this.form.createTime).format("yyyy-MM-dd hh:mm:ss")
-                            this.$postRequest('/news',this.form)
-                            this.openForm =false;
-                            this.getList()
+                            this.$postRequest('/news',this.form).then(
+                                response=>{
+                                    if (response){
+                                        this.openForm =false;
+                                        this.getList()
+                                        this.form.userId = undefined
+                                    }
+                                }
+                            )
+
                         }
                     )
                 }

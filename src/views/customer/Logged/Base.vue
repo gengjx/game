@@ -44,6 +44,9 @@
                             <el-dropdown-item @click.native="GoInformation">个人信息</el-dropdown-item>
                             <el-dropdown-item @click.native="logout">注销</el-dropdown-item>
                             <el-dropdown-item @click.native="GoShoucang">我的收藏</el-dropdown-item>
+                            <el-dropdown-item @click.native="GoMyNews">我发布的文章</el-dropdown-item>
+                            <el-dropdown-item @click.native="drawer = true">站内消息</el-dropdown-item>
+                             <el-dropdown-item @click.native="dialogFormVisible=true">修改密码</el-dropdown-item>
                         </el-dropdown-menu>
                         </el-dropdown>
 
@@ -112,6 +115,42 @@
         </el-container>
 
 
+        <el-drawer
+                title="站内信"
+                :visible.sync="drawer"
+                :direction="direction"
+                :before-close="handleClose"
+                 @open="handOpen">
+                <h1>个人公告部分</h1>
+                <el-card v-for="item in this.notices" v-show="notices.length>0">
+                    <li>
+                        {{item.content}}
+                    </li>
+                    <el-button @click="deleteNotice(item)">移除消息</el-button>
+                </el-card>
+
+                <h1>系统公告部分</h1>
+
+            <el-card v-for="item in this.SystemNotices" v-show="SystemNotices.length>0" :title="item.noticeTitle">
+                <span>{{item.noticeTitle}}</span>
+                <hr>
+                <li>
+                    {{item.noticeContent}}
+                </li>
+            </el-card>
+        </el-drawer>
+        <el-dialog title="修改密码" :visible.sync="dialogFormVisible" width="600px" append-to-body>
+            <el-form label-width="60px">
+                <el-form-item  label="新密码">
+                    <el-input v-model="newpass" ></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="edit">确认</el-button>   <el-button type="warning" @click="dialogFormVisible=false">取消</el-button>
+                </el-form-item>
+            </el-form>
+
+        </el-dialog>
+
     </div>
 </template>
 
@@ -119,6 +158,26 @@
     export default {
         name: "Base",
         methods:{
+            deleteNotice(item){
+                this.$deleteRequest('/notice/'+item.id)
+                let id = this.user.user.userId
+                let query={
+                    userid:id
+                }
+                this.$getRepquest('/notice/list',query).then(response=>{
+                    if (response){
+                        this.notices = response.rows;
+                        console.log(this.notices)
+                    }
+                })
+
+                this.$getRepquest('/system/notice/list').then(response=>{
+                    if (response){
+                        this.SystemNotices = response.rows;
+
+                    }
+                })
+            },
             serach(){
                 this.GoSearch();
             },
@@ -162,6 +221,55 @@
             },
             GoJuLEBu(){
                 this.$router.replace('/JuLeBuIndex')
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            },
+            handOpen(){
+                console.log(this.user.user)
+                let id = this.user.user.userId
+                let query={
+                    userid:id
+                }
+                this.$getRepquest('/notice/list',query).then(response=>{
+                    if (response){
+                        this.notices = response.rows;
+                        console.log(this.notices)
+                    }
+                })
+                this.$getRepquest('/system/notice/list').then(response=>{
+                    if (response){
+                        this.SystemNotices = response.rows;
+
+                    }
+                })
+            },
+            GoMyNews(){
+
+                this.$router.push("/myNews")
+            },
+            edit(){
+
+                let user = JSON.parse(window.sessionStorage.getItem("user")).user
+
+                this.$confirm('请确认修改"' + user.userName + '"为新密码', "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消"
+                }).then(({ value }) => {
+                    this.ResetPwd.userName = user.userName;
+                    this.ResetPwd.userId = user.userId;
+                    this.ResetPwd.value =this.newpass;
+                    this.$putRequest('/system/user/',this.ResetPwd).then(response => {
+                        if (response != null && response){
+                            this.$message("修改成功，新密码是：" + this.newpass);
+                        }
+
+                    });
+                }).catch(() => {});
             }
         },
         mounted() {
@@ -170,6 +278,7 @@
                 this.userName =this.user.user.nickName;
                 this.$router.push("/L/index")
 
+
         },
         data(){
             return{
@@ -177,10 +286,18 @@
                 router:{},
                 userName:'gengjiaxin',
                 content:undefined,
-            }
-
+                drawer: false,
+                direction: 'rtl',
+                notices:[],
+                SystemNotices:[],
+                dialogFormVisible:false,
+                newpass:undefined,
+                ResetPwd:{
+                    userId:undefined,
+                    value:undefined,
+                },
+            };
         },
-
     }
 </script>
 

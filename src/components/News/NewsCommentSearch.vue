@@ -116,8 +116,13 @@
                 if (this.on==false){
                     this.on = true
                     this.comment.likeNumber = this.comment.likeNumber+1
-                    this.$putRequest('/newscomment',this.comment)
-                    this.getList()
+                    this.$putRequest('/newscomment',this.comment).then(response=>{
+                        if (response){
+                            this.getList()
+                        }
+
+                    })
+
 
                     let query={
                         consolenewsid:this.comment.id,

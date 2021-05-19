@@ -92,9 +92,9 @@
             <el-table-column label="游戏语言" align="center" prop="gameLanguage" width="130" :formatter="Languagefromtter" />
             <el-table-column label="发行商" align="center" prop="gameCreater" :show-overflow-tooltip="true" />
             <el-table-column label="基本描述" align="center" prop="remark"  />
-            <el-table-column label="发行时间" align="center" prop="gameCreateTime" width="180">
+            <el-table-column label="发行时间" align="center" prop="gameCreateTime" width="180"/>
+            <el-table-column label="游戏价格(RMB)" align="center" prop="price" width="180"/>
 
-            </el-table-column>
             <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
                 <template slot-scope="scope">
                     <el-button
@@ -246,6 +246,12 @@
                                 <el-input v-model="form.remark"></el-input>
                             </el-form-item>
                         </el-col>
+
+                <el-col>
+                    <el-form-item label="游戏定价" prop="remark" >
+                        <el-input v-model="form.price"></el-input>
+                    </el-form-item>
+                </el-col>
             </el-form>
             <div slot="footer">
                 <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -292,6 +298,7 @@
                     gameLable:undefined,
                     gameOperatorType:undefined,
                     gameLanguage:undefined,
+                    price:undefined
                 },
                 open:false,
                 imageList:[],
@@ -508,6 +515,7 @@
                         gameLable:undefined,
                         gameOperatorType:undefined,
                         gameLanguage:undefined,
+                        price:undefined
                 };
                 this.openForm =true;
 

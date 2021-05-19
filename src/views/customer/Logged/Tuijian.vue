@@ -17,6 +17,46 @@
                 </el-col>
             </el-row>
         </div>
+        <h1>今日最优惠</h1>
+        <el-row>
+            <el-col :span="3" v-for="item in consoless"  >
+                <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
+                    <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+                    <div style="padding: 14px;">
+                        <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
+                        <b> {{item.gameCode}}</b><br>
+                        {{item.gameCreateTime}}
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
+        <h1>点评最热门</h1>
+        <el-row>
+            <el-col :span="3" v-for="item in consolesss"  >
+                <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
+                    <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+                    <div style="padding: 14px;">
+                        <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
+                        <b> {{item.gameCode}}</b><br>
+                        {{item.gameCreateTime}}
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
+
+        <h1>社区最热门</h1>
+        <el-row>
+            <el-col :span="3" v-for="item in consolessss"  >
+                <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
+                    <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+                    <div style="padding: 14px;">
+                        <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
+                        <b> {{item.gameCode}}</b><br>
+                        {{item.gameCreateTime}}
+                    </div>
+                </el-card>
+            </el-col>
+        </el-row>
 
     </div>
 </template>
@@ -28,6 +68,9 @@
             return{
                 user:{},
                 consoles:[],
+                consoless:[],
+                consolesss:[],
+                consolessss:[],
             }
         },
         methods:    {
@@ -39,6 +82,30 @@
                         }
                     }
                 )
+                this.$getRepquest('/console/listTuijianPrize/'+this.user.userId).then(
+                    response=>{
+                        if (response){
+                            this.consoless =response.rows
+                        }
+                    }
+                )
+
+                this.$getRepquest('/console/listTuijianConsoleComment/'+this.user.userId).then(
+                    response=>{
+                        if (response){
+                            this.consolesss =response.rows
+                        }
+                    }
+                )
+
+                this.$getRepquest('/console/listTuijianNewsComment/'+this.user.userId).then(
+                    response=>{
+                        if (response){
+                            this.consolessss =response.rows
+                        }
+                    }
+                )
+
             },
             ConsoleDetail(row){
                 window.sessionStorage.setItem("gameform",null);

@@ -47,6 +47,8 @@ import JuLeBuNot from "../components/game/JuLeBuNot";
 import JuLeBuIndex from "../views/customer/Logged/JuLeBuIndex";
 import Dict from '../components/dict/index'
 import Data from '../components/dict/data'
+import Notice from '../components/notice/index'
+import MyNews from "../views/customer/Logged/MyNews";
 Vue.use(VueRouter)
 const routes = [
   {
@@ -186,6 +188,11 @@ const routes = [
         path: '/JuLeBuIndex',
         name: JuLeBuIndex,
         component: JuLeBuIndex,
+      },{
+        path: '/myNews',
+        name: MyNews,
+        component: MyNews
+
       }
 
     ]
@@ -275,6 +282,10 @@ const routes = [
         path: '/dict/type/data/',
         component: Data,
         name: Data
+      },{
+        path: '/notice/index',
+        component:Notice,
+        name:Notice
       }
     ]
   }

@@ -58,6 +58,10 @@
                             </el-submenu>
                             <el-menu-item index="/dict/index">参数管理</el-menu-item>
                         </el-menu-item-group>
+
+                            <el-menu-item-group>
+                                <el-menu-item index="/notice/index">站内公告管理</el-menu-item>
+                            </el-menu-item-group>
                     </el-submenu>
 
                         <el-submenu index="2" v-show="user.permissions.length>0">

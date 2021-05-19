@@ -417,10 +417,18 @@
                     ).then(
                         ()=>{
                             this.form.tags =this.form.abstrs = this.form.title
+                            this.form.userId = this.user.userId
                             this.form.createTime = new Date(this.form.createTime).format("yyyy-MM-dd hh:mm:ss")
-                            this.$postRequest('/news',this.form)
-                            this.openForm =false;
-                            this.getList()
+                            this.$postRequest('/news',this.form).then(
+                                response=>{
+                                    if (response){
+                                        this.form.userId = undefined
+                                        this.openForm =false;
+                                        this.getList()
+                                    }
+                                }
+                            )
+
                         }
                     )
                 }

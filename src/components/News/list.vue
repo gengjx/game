@@ -155,6 +155,16 @@
                 <el-form-item label="标签">
                     <el-input v-model="form.tags"></el-input>
                 </el-form-item>
+                <el-form-item label="游戏模块">
+                    <el-select v-model="form.gameName" placeholder="请选择">
+                        <el-option
+                                v-for="item in consoles"
+                                :key="item.gameName"
+                                :label="item.gameName"
+                                :value="item.gameName">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item label="内容">
                     <div class="edit_container">
                         <quill-editor
@@ -341,6 +351,7 @@
                     createTime:undefined,
                 }
                 this.openForm =true;
+                consoles:[];
             },
             //选中改变
             handleSelectionChange(val){
@@ -512,6 +523,8 @@
                         }
                     ).then(
                         ()=>{
+                            let user = JSON.parse(window.sessionStorage.getItem("user")).user
+                            this.form.userId =user.userId
                             this.form.createTime = new Date(this.form.createTime).format("yyyy-MM-dd hh:mm:ss")
                             this.$postRequest('/news',this.form)
                             this.openForm =false;
@@ -531,6 +544,14 @@
                     this.typeOptions = response.data;
                 }
             });
+            this.$getRepquest('/console/list').then(
+                response=>{
+                    if (response){
+                        this.consoles = response.rows
+
+                    }
+                }
+            )
 
         },
         mounted() {
