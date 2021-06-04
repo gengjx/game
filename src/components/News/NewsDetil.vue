@@ -179,7 +179,7 @@
                 this.open = true
             },
             deleteComment(item){
-                this.$deleteRequest('/newscomment/'+this.item.id).then(
+                this.$deleteRequest('/newscomment/'+item.id).then(
                     response=>{
                         if (response){
                             this.getList()

@@ -72,11 +72,11 @@
             </el-table-column>
             <el-table-column label="主键id" align="center" prop="id" />
             <el-table-column label="标题" align="center" prop="title" />
-            <el-table-column label="分类" align="center" prop="categoryId" :formatter="fromtter" />
-            <el-table-column label="摘要" align="center" prop="abstrs"   />
-            <el-table-column label="标签" align="center" prop="tags"   />
-            <el-table-column label="标签" align="center" prop="author"   />
-            <el-table-column label="作者" align="center" prop="viewNumber"   />
+<!--            <el-table-column label="分类" align="center" prop="categoryId" :formatter="fromtter" />-->
+<!--            <el-table-column label="摘要" align="center" prop="abstrs"   />-->
+<!--            <el-table-column label="标签" align="center" prop="tags"   />-->
+            <el-table-column label="作者" align="center" prop="author"   />
+            <el-table-column label="观看数" align="center" prop="viewNumber"   />
             <el-table-column label="评论数" align="center" prop="commentNumber"   />
             <el-table-column label="操作" align="center" >
                 <template slot-scope="scope">
@@ -99,7 +99,7 @@
                 v-show="total>0"
                 :total="total"
                 :current-page.sync="queryParams.pageNum"
-                :page-sizes="[10, 20, 30, 40]"
+                :page-sizes="[5, 10, 15, 20]"
                 :page-size.sync="queryParams.pageSize"
                 layout="sizes, prev, pager, next"
                 @size-change="getList"
@@ -508,6 +508,40 @@
                         ()=>{
                             console.log(this.form)
                             this.form.createTime = new Date(this.form.createTime).format("yyyy-MM-dd hh:mm:ss")
+                                // categoryId:undefined,
+                                // title:undefined,
+                                // abstrs:undefined,
+                                // tags:undefined,
+                                // photo:undefined,
+                                // author:undefined,
+                                // content:undefined,
+                                // viewNumber:0,
+                                // commentNumber:0,
+                                // createTime:undefined,
+                            if (this.form.title===undefined||this.form.title===''){
+                                this.$message("注意填写标题")
+                                return;
+                            }
+                            if (this.form.abstrs===undefined||this.form.abstrs===''){
+                                this.$message("注意填写摘要")
+                                return;
+                            }
+                            if (this.form.tags===undefined||this.form.tags===''){
+                                this.$message("注意填写标签")
+                                return;
+                            }
+                            if (this.form.photo===undefined||this.form.photo===''){
+                                this.$message("注意填写照片")
+                                return;
+                            }
+                            if (this.form.author===undefined||this.form.author===''){
+                                this.$message("注意填写作者")
+                                return;
+                            }
+                            if (this.form.content===undefined||this.form.content===''){
+                                this.$message("注意填写内容")
+                                return;
+                            }
                             this.$putRequest('/news',this.form)
                             this.openForm =false;
                             this.getList()
@@ -526,9 +560,37 @@
                             let user = JSON.parse(window.sessionStorage.getItem("user")).user
                             this.form.userId =user.userId
                             this.form.createTime = new Date(this.form.createTime).format("yyyy-MM-dd hh:mm:ss")
-                            this.$postRequest('/news',this.form)
-                            this.openForm =false;
-                            this.getList()
+                            if (this.form.title===undefined||this.form.title===''){
+                                this.$message("注意填写标题")
+                                return;
+                            }
+                            if (this.form.abstrs===undefined||this.form.abstrs===''){
+                                this.$message("注意填写摘要")
+                                return;
+                            }
+                            if (this.form.tags===undefined||this.form.tags===''){
+                                this.$message("注意填写标签")
+                                return;
+                            }
+                            if (this.form.photo===undefined||this.form.photo===''){
+                                this.$message("注意填写照片")
+                                return;
+                            }
+                            if (this.form.author===undefined||this.form.author===''){
+                                this.$message("注意填写作者")
+                                return;
+                            }
+                            if (this.form.content===undefined||this.form.content===''){
+                                this.$message("注意填写内容")
+                                return;
+                            }
+                            this.$postRequest('/news',this.form).then(response=>{
+                                if (response){
+                                    this.openForm =false;
+                                    this.getList()
+                                }
+                            })
+
                         }
                     )
                 }

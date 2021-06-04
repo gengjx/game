@@ -5,9 +5,9 @@
         </div>
         <div>
             <el-row>
-                <el-col :span="3" v-for="item in consoles"  >
-                    <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
-                        <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+                <el-col :span="4" v-for="item in consoles"  >
+                    <el-card  :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
+                        <el-avatar :src="item.gameImage" style="width: 75px;height: 75px;margin-left: 50px"></el-avatar>
                         <div style="padding: 14px;">
                             <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                             <b> {{item.gameCode}}</b><br>
@@ -19,9 +19,9 @@
         </div>
         <h1>今日最优惠</h1>
         <el-row>
-            <el-col :span="3" v-for="item in consoless"  >
-                <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
-                    <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+            <el-col :span="4" v-for="item in consoless"  >
+                <el-card  :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
+                    <el-avatar :src="item.gameImage" style="width: 75px;height: 75px;margin-left: 50px"></el-avatar>
                     <div style="padding: 14px;">
                         <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                         <b> {{item.gameCode}}</b><br>
@@ -32,9 +32,9 @@
         </el-row>
         <h1>点评最热门</h1>
         <el-row>
-            <el-col :span="3" v-for="item in consolesss"  >
-                <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
-                    <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+            <el-col :span="4" v-for="item in consolesss"  >
+                <el-card  :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
+                    <el-avatar :src="item.gameImage" style="width: 75px;height: 75px;margin-left: 50px"></el-avatar>
                     <div style="padding: 14px;">
                         <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                         <b> {{item.gameCode}}</b><br>
@@ -46,9 +46,9 @@
 
         <h1>社区最热门</h1>
         <el-row>
-            <el-col :span="3" v-for="item in consolessss"  >
-                <el-card :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px" >
-                    <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+            <el-col :span="4" v-for="item in consolessss"  >
+                <el-card v-loading="loading" :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
+                    <el-avatar :src="item.gameImage" style="width: 75px;height: 75px;margin-left: 50px"></el-avatar>
                     <div style="padding: 14px;">
                         <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                         <b> {{item.gameCode}}</b><br>

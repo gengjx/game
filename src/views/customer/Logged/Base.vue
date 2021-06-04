@@ -3,7 +3,7 @@
         <el-container  style="height: 100%;width: 100%;position: fixed">
             <el-header style="height: 5%;width: 100%">
                 <div   class="t" style="height: 100%;width: 100%" >
-                    <span style="margin-top: 20%">小耿商城  网站功能反馈QQ号1335339044 </span>
+                    <span style="margin-top: 20%">XGAME  网站功能反馈QQ号1335339044 </span>
                     <span style="margin-left: 100px">
                                     <el-dropdown >
                         <span style="color:white">导航</span>
@@ -33,7 +33,7 @@
                         </el-dropdown-menu>
                  </el-dropdown>
 
-                        <el-input  v-model="content" style="width: 300px;margin-left: 300px" placeholder="请输入搜索信息" ></el-input><el-button type="primary" icon="el-icon-search" @click.native="serach"></el-button>
+                 <el-input  v-model="content" style="height:40px;width: 300px;margin-left: 300px" placeholder="请输入搜索信息" ></el-input><el-button type="primary" icon="el-icon-search" @click.native="serach"></el-button>
                     </span>
 
                     <span style="float: right">
@@ -58,53 +58,50 @@
                 <router-view></router-view>
             </el-main>
             <el-footer style="height: 20%;width: 100%;" >
-                <div style="float: left;width: 20%; color: white">
-                    <el-image :src="require('../../../assets/index.jpg')" style="height: 10%;float: left;width: 30%;margin-top: 5%"></el-image>
+                <div style="float: left;width: 20%; color: white;height: 50%">
+                    <el-image :src="require('../../../assets/index.jpg')" style="height: 100%;float: left;width: 30%"></el-image>
                     <br>
-                    <br>
-                    <br>
-                    <br>
-                    <span style="float: left">
-                        专业、严谨、有趣，游戏时光由热爱游戏的新老玩家组成,
-                        把关于电视游戏的一切分享给大家。
+
+                    <span style="float: left;height: 50%;font-size: 5%">
+                        专业、严谨、有趣，游戏时光由热爱游戏的新老玩家组成,把关于电视游戏的一切分享给大家。
                     </span>
 
                 </div>
-                <div style="float: left;width: 20%;color: white">
-                    <div style="margin-top: 20px"><b>找游戏</b></div>
+                <div style="float: left;width: 20%;color: white;height: 100%">
+                    <div style="font-size: 5%">
+                    <div ><b>找游戏</b></div>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">Ps4游戏推荐</el-link><br>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">Xbox one游戏推荐</el-link><br>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">Switch 游戏推荐</el-link><br>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">PS VR 游戏推荐</el-link><br>
+                    </div>
                 </div>
 
                 <div style="float: left;width: 20%;color: white">
-                    <div style="margin-top: 20px"><b>交流群</b></div>
-                    <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流①群1335339044</el-link><br>
-                    <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流②群1335339044</el-link><br>
-                    <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流③群1335339044</el-link><br>
-                    <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流④群1335339044</el-link>
+                    <div style="font-size: 5%">
+                        <div ><b>交流群</b></div>
+                        <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流①群1335339044</el-link><br>
+                        <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流②群1335339044</el-link><br>
+                        <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流③群1335339044</el-link><br>
+                        <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">交流④群1335339044</el-link>
+                    </div>
+
                 </div>
 
 
-                <div style="float: left;width: 20%;color: white">
-                    <div style="margin-top: 20px"><b>联系合作</b></div>
-                    <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white"></el-link><br>
+                <div style="float: left;width: 20%;color: white;font-size: 5%">
+                    <div ><b>联系合作</b></div>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">如何投稿</el-link><br>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">主编信箱</el-link><br>
                     <el-link href="https://www.vgtime.com/topic/748493.jhtml" style="color: white">商务合作</el-link><br>
                     <el-link @click="Goto" style="color: white">后台管理</el-link><br>
                 </div>
 
-                <div style="float: left;width: 20%;color: white;height: 100%">
-                    <div style="margin-top: 20px">
+                <div style="float: left;width: 20%;color: white;height: 100%;font-size: 5%">
+                    <div >
                         <i class="el-icon-edit" style="margin-left: 30px"></i>
                         <i class="el-icon-share" style="margin-left: 30px"></i>
                         <i class="el-icon-delete" style="margin-left: 30px"></i>
-                    </div>
-
-                    <div style="height: 30%">
-
                     </div>
                     UCG商城 游久网 GOG 杉果 独立精神 <br>
                     虎牙 腾讯游戏
@@ -159,24 +156,31 @@
         name: "Base",
         methods:{
             deleteNotice(item){
-                this.$deleteRequest('/notice/'+item.id)
-                let id = this.user.user.userId
-                let query={
-                    userid:id
-                }
-                this.$getRepquest('/notice/list',query).then(response=>{
-                    if (response){
-                        this.notices = response.rows;
-                        console.log(this.notices)
+                this.$deleteRequest('/notice/'+item.id).then(response=>{
+                    let id = this.user.user.userId
+                    let query={
+                        userid:id
                     }
+                    this.$getRepquest('/notice/list',query).then(response=>{
+                        if (response){
+                            this.notices = response.rows;
+                            console.log(this.notices)
+                            let query1 ={
+                                pageNum:1,
+                                pageSize:5,
+                            }
+                            this.$getRepquest('/system/notice/list',query1).then(response=>{
+                                if (response){
+                                    this.SystemNotices = response.rows;
+
+                                }
+                            })
+                        }
+                    })
                 })
 
-                this.$getRepquest('/system/notice/list').then(response=>{
-                    if (response){
-                        this.SystemNotices = response.rows;
 
-                    }
-                })
+
             },
             serach(){
                 this.GoSearch();
@@ -197,10 +201,11 @@
                 this.$router.push('/Tuijian')
             },
             logout(){
-                this.$router.replace('/')
-                this.$getRepquest("/logout").catch(
+
+                this.$getRepquest("/logout").then(
                     resp=>{
-                        window.sessionStorage.setItem("token",null)
+                        this.$router.replace('/')
+                        //window.sessionStorage.setItem("token",null)
                     }
                 )
             },
@@ -233,7 +238,9 @@
                 console.log(this.user.user)
                 let id = this.user.user.userId
                 let query={
-                    userid:id
+                        userid:id,
+                        pageNum:1,
+                        pageSize:5,
                 }
                 this.$getRepquest('/notice/list',query).then(response=>{
                     if (response){
@@ -262,8 +269,8 @@
                 }).then(({ value }) => {
                     this.ResetPwd.userName = user.userName;
                     this.ResetPwd.userId = user.userId;
-                    this.ResetPwd.value =this.newpass;
-                    this.$putRequest('/system/user/',this.ResetPwd).then(response => {
+                    this.ResetPwd.password =this.newpass;
+                    this.$putRequest('/system/user/resetPwd',this.ResetPwd).then(response => {
                         if (response != null && response){
                             this.$message("修改成功，新密码是：" + this.newpass);
                         }

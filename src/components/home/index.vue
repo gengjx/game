@@ -24,7 +24,7 @@
         <div style="width: 70%;top: 50%;float: left" >
             <h2>游戏商城后台管理框架</h2>
             <div style="font-size:20px">
-                该商城后台管理系统 为20172759 耿嘉新同学的毕业设计
+                该XGAME网站 为20172759 耿嘉新同学的毕业设计
                 当前版本: v1.1.0
             </div>
 
@@ -40,14 +40,9 @@
             MyBatis
             Druid
             Fastjson
-            ...
             前端技术
             Vue
-            Vuex
             Element-ui
-            Axios
-            Sass
-            ...
                 </div>
         </div>
 

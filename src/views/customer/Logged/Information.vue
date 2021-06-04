@@ -5,7 +5,7 @@
             <div style="height: 50%;width: 40%">
                 <el-avatar :src="informationForm.avatar" style="margin-left: 20%" :size="300"></el-avatar><br>
                 <el-upload
-
+                        style="margin-left: 25%"
                         action="/api/console/imgUpload/"
                         list-type="picture-card"
                         accept="image/*"
@@ -19,7 +19,8 @@
                         :before-upload="beforeAvatarUpload"
                         :on-exceed="handleExceed"
                         :on-error="imgUploadError"
-                style="height: 10%;width: 10%;margin-left: 25%">
+
+                >
                     <i class="el-icon-plus"></i>
                 </el-upload>
                 <div style="height: 70%;width: 60%;margin-left: 20%;margin-top: 15%">
@@ -95,10 +96,14 @@
                             cancelButtonText: '取消',
                             type: 'warning'
                         }).then(()=>{
-                            this.$router.replace('/')
-                            this.$getRepquest("/logout").catch(
+
+                            this.$getRepquest("/logout").then(
                                 resp=>{
-                                    window.sessionStorage.setItem("token",null)
+                                    if (resp){
+                                        //window.sessionStorage.setItem("token",null)
+                                        this.$router.replace('/')
+                                    }
+
                                 }
                             )
                         })

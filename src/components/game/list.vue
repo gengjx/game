@@ -21,9 +21,9 @@
                         @keyup.enter.native="handleQuery"
                 />
             </el-form-item>
-            <el-form-item label="类型" prop="businessType">
+            <el-form-item label="类型" prop="gameLable">
                 <el-select
-                        v-model="queryParams.businessType"
+                        v-model="queryParams.gameLable"
                         placeholder="操作类型"
                         clearable
                         size="small"
@@ -37,22 +37,22 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item label="状态" prop="status">
-                <el-select
-                        v-model="queryParams.status"
-                        placeholder="操作平台"
-                        clearable
-                        size="small"
-                        style="width: 240px"
-                >
-                    <el-option
-                            v-for="dict in platformOptions"
-                            :key="dict.dictValue"
-                            :label="dict.dictLabel"
-                            :value="dict.dictValue"
-                    />
-                </el-select>
-            </el-form-item>
+<!--            <el-form-item label="操作平台" prop="gameOperatorType">-->
+<!--                <el-select-->
+<!--                        v-model="queryParams.gameOperatorType"-->
+<!--                        placeholder="操作平台"-->
+<!--                        clearable-->
+<!--                        size="small"-->
+<!--                        style="width: 240px"-->
+<!--                >-->
+<!--                    <el-option-->
+<!--                            v-for="dict in platformOptions"-->
+<!--                            :key="dict.dictValue"-->
+<!--                            :label="dict.dictLabel"-->
+<!--                            :value="dict.dictValue"-->
+<!--                    />-->
+<!--                </el-select>-->
+<!--            </el-form-item>-->
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
                 <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -91,7 +91,7 @@
             <el-table-column label="操作平台" align="center" prop="gameOperatorType" :formatter="platfromtter" />
             <el-table-column label="游戏语言" align="center" prop="gameLanguage" width="130" :formatter="Languagefromtter" />
             <el-table-column label="发行商" align="center" prop="gameCreater" :show-overflow-tooltip="true" />
-            <el-table-column label="基本描述" align="center" prop="remark"  />
+<!--            <el-table-column label="基本描述" align="center" prop="remark"  />-->
             <el-table-column label="发行时间" align="center" prop="gameCreateTime" width="180"/>
             <el-table-column label="游戏价格(RMB)" align="center" prop="price" width="180"/>
 
@@ -223,7 +223,7 @@
 
                         </el-form-item>
 
-                        <el-form-item label="游戏平台" >
+                        <el-form-item label="游戏语言" >
                             <el-select v-model="form.LanaugeIds" multiple placeholder="请选择" @change="testx">
                                 <el-option
                                         v-for="item3 in this.LanaugeOptions"
@@ -559,6 +559,30 @@
                             this.form.gameLanguage = this.form.gameLanguage.substring(0,this.form.gameLanguage.length-1)
                             console.log(this.form)
                             this.form.gameCreateTime = new Date(this.form.gameCreateTime).format("yyyy-MM-dd hh:mm:ss")
+                            if (this.form.gameLable===''){
+                                this.$message('请选择游戏类型')
+                                return;
+                            }
+
+                            if (this.form.gameLanguage===''){
+                                this.$message('请选择游戏语言')
+                                return;
+                            }
+
+                            if (this.form.gameOperatorType===''){
+                                this.$message('请选择游戏平台')
+                                return;
+                            }
+
+                            if (this.form.gameName===''|| this.form.gameName===undefined
+                                ||this.form.gameCreater===''|| this.form.gameCreater===undefined
+                                ||this.form.gameCreateTime===''|| this.form.gameCreateTime===undefined
+                                ||this.form.gameCode===''|| this.form.gameCode===undefined
+                                ||this.form.price===''|| this.form.price===undefined
+                               ){
+                                this.$message('请选择补全数据')
+                                return;
+                            }
                             this.$putRequest('/console',this.form)
                             this.openForm =false;
                             this.getList()
@@ -590,7 +614,30 @@
                             }
                             this.form.gameLanguage = this.form.gameLanguage.substring(0,this.form.gameLanguage.length-1)
                             console.log(this.form)
+                            if (this.form.gameLable===''){
+                                this.$message('请选择游戏类型')
+                                return;
+                            }
+
+                            if (this.form.gameLanguage===''){
+                                this.$message('请选择游戏语言')
+                                return;
+                            }
+
+                            if (this.form.gameOperatorType===''){
+                                this.$message('请选择游戏平台')
+                                return;
+                            }
                             this.form.gameCreateTime = new Date(this.form.gameCreateTime).format("yyyy-MM-dd hh:mm:ss")
+                            if (this.form.gameName===''|| this.form.gameName===undefined
+                                ||this.form.gameCreater===''|| this.form.gameCreater===undefined
+                                ||this.form.gameCreateTime===''|| this.form.gameCreateTime===undefined
+                                ||this.form.gameCode===''|| this.form.gameCode===undefined
+                                ||this.form.price===''|| this.form.price===undefined
+                            ){
+                                this.$message('请选择补全数据')
+                                return;
+                            }
                             this.$postRequest('/console',this.form)
                             this.openForm =false;
                             this.getList()

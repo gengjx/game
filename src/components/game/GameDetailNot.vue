@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1000px;text-align: center;margin-left: 35%;margin-top: 3%" >
+    <div style="width: 60%;text-align: center;margin-top: 3%;margin-left: 10%" >
         <div style="text-align: left">
             <h1 style="font-size: 60px">游戏看一看:</h1>
         </div>

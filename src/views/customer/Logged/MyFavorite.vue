@@ -9,8 +9,8 @@
             <h1 style="color:white">关注的游戏时常看一看</h1>  <el-link @click="GoGameList">更多速看</el-link>
             <el-row>
                 <el-col :span="4" v-for="item in Consoles"  >
-                    <el-card :body-style="{ padding: '0px'}" style="width: 300px;height: 250px;margin-top: 15px" >
-                        <img :src="item.gameImage" style="width: 300px;height: 150px">
+                    <el-card v-loading="loading" :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
+                        <el-avatar :src="item.gameImage" style="width: 75px;height: 75px;margin-left: 50px"></el-avatar>
                         <div style="padding: 14px;">
                             <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                             <b> {{item.gameCode}}</b><br>
@@ -72,6 +72,8 @@
 
         },
         mounted() {
+            let user = JSON.parse(window.sessionStorage.getItem("user")).user
+            this.form.userid = user.userId
             this.$getRepquest('/console/UserAttation',this.form).then(resp=>{
                 if (resp.data != null && resp.data.length >0){
                     console.log(resp);

@@ -4,9 +4,9 @@
         <div>
             <h1 style="color:white">游戏推荐</h1>  <el-link @click="GoGameList">更多速看</el-link>
             <el-row>
-                <el-col :span="3" v-for="item in Consoles"  >
+                <el-col :span="4" v-for="item in Consoles"  >
                     <el-card v-loading="loading" :body-style="{ padding: '0px'}" style="width: 200px;height: 250px;margin-top: 15px"  >
-                        <el-avatar :src="item.gameImage" style="width: 200px;height: 150px"></el-avatar>
+                        <el-avatar :src="item.gameImage" style="width: 75px;height: 75px;margin-left: 50px"></el-avatar>
                         <div style="padding: 14px;">
                             <b> <el-link @click="ConsoleDetail(item)" >{{ item.gameName}}</el-link></b><br>
                             <b> {{item.gameCode}}</b><br>
@@ -20,14 +20,14 @@
         <div>
             <h1 style="color: white">新闻资讯</h1>  <el-link @click="GoGameNews">更多速看</el-link>
             <el-row>
-                <el-col :span="7" v-for="item1 in News0" >
-                    <el-card  style="width: 500px;height: 150px"  v-loading="loading">
-                        <div style="height: 150px;float: left;width: 300px">
+                <el-col :span="8" v-for="item1 in News0" >
+                    <el-card  style="width: 400px;height: 150px" v-loading="loading" >
+                        <div style="height: 150px;float: left;width: 200px">
                             <b> <el-link @click="NewsDetail(item1)" >{{ item1.title}}</el-link></b><br>
                             <b> 作者:{{item1.author}}</b><br>
                             发布时间:{{item1.createTime}}
                         </div>
-                        <div style="float: left;width: 75px;height: 75px;margin-left: 50px">
+                        <div style="float: left;width: 75px;height: 75px">
                             <el-avatar :src="item1.photo" style="height: 75px;width: 75px" ></el-avatar>
                         </div>
 
@@ -41,14 +41,14 @@
         <div>
             <h1 style="color: white">攻略实战</h1>   <el-link @click="GoGameMethod" >更多速看</el-link>
             <el-row>
-                <el-col :span="7" v-for="item1 in News1" >
-                    <el-card  style="width: 500px;height: 150px"  v-loading="loading">
-                        <div style="height: 150px;float: left;width: 300px">
+                <el-col :span="8" v-for="item1 in News1" >
+                    <el-card  style="width: 400px;height: 150px" v-loading="loading" >
+                        <div style="height: 150px;float: left;width: 200px">
                             <b> <el-link @click="NewsDetail(item1)" >{{ item1.title}}</el-link></b><br>
                             <b> 作者:{{item1.author}}</b><br>
                             发布时间:{{item1.createTime}}
                         </div>
-                        <div style="float: left;width: 75px;height: 75px;margin-left: 50px">
+                        <div style="float: left;width: 75px;height: 75px">
                             <el-avatar :src="item1.photo" style="height: 75px;width: 75px" ></el-avatar>
                         </div>
 
@@ -62,14 +62,14 @@
         <div>
             <h1 style="color: white">玩家点评</h1>   <el-link @click="GoGameCheck">更多速看</el-link>
             <el-row>
-                <el-col :span="7" v-for="item1 in News2" >
-                    <el-card  style="width: 500px;height: 150px" v-loading="loading" >
-                        <div style="height: 150px;float: left;width: 300px">
+                <el-col :span="8" v-for="item1 in News2" >
+                    <el-card  style="width: 400px;height: 150px" v-loading="loading" >
+                        <div style="height: 150px;float: left;width: 200px">
                             <b> <el-link @click="NewsDetail(item1)" >{{ item1.title}}</el-link></b><br>
                             <b> 作者:{{item1.author}}</b><br>
                             发布时间:{{item1.createTime}}
                         </div>
-                        <div style="float: left;width: 75px;height: 75px;margin-left: 50px">
+                        <div style="float: left;width: 75px;height: 75px">
                             <el-avatar :src="item1.photo" style="height: 75px;width: 75px" ></el-avatar>
                         </div>
 

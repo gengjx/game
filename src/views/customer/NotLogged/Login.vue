@@ -31,7 +31,7 @@
 
             <div  class="TForm" style="text-align: center;height:55%;margin-top: 5%;width: 30%">
                 <div >
-                    加入 GGame，探索数千款精彩游戏。<br>
+                    加入我们，探索大千世界。<br>
                     了解更多<br>
                 </div>
 
@@ -76,7 +76,7 @@
                     ],
                     password: [
                         { required: true, message: '请选择输入密码', trigger: 'blur' }
-                        ,{min:6,max:11,message: '密码在6到11位之间',trigger: 'blur'}
+                        // ,{min:6,max:11,message: '密码在6到11位之间',trigger: 'blur'}
                         ],
                     code:[
                         { required: true, message: '请选择输入验证码', trigger: 'blur' }
@@ -98,7 +98,8 @@
                                     if (resp.code=='200'){
                                         window.sessionStorage.setItem("token","Bearer "+resp.token)
                                         this.getUserInfo();
-                                        this.getRouters();
+                                        // this.getRouters();
+
                                     }
                                 }
 
@@ -135,6 +136,7 @@
                         if(resp){
                             console.log(resp)
                             window.sessionStorage.setItem("user",JSON.stringify(resp))
+                            this.getRouters()
                         }
 
                     }
@@ -146,7 +148,7 @@
                         if (resp){
                             console.log(resp);
                             window.sessionStorage.setItem("router",JSON.stringify(resp))
-                            this.$router.push('/LBase')
+                            this.$router.replace('/LBase')
                         }
 
                     }

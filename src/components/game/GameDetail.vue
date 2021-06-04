@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1000px;text-align: center;margin-left: 35%;margin-top: 3%" >
+    <div style="width: 60%;text-align: center;margin-top: 3%;margin-left: 10%" >
         <div style="text-align: left">
             <h1 style="font-size: 60px">游戏看一看:</h1>
         </div>
@@ -112,7 +112,7 @@
 
         </div>
         <div>
-            <el-card v-for="item in News" style="margin-top: 30px;width: 1000px;height:150px"  v-loading="loading">
+            <el-card v-for="item in News" style="margin-top: 30px;width: 60%;height:150px"  v-loading="loading">
                 <div style="width: 200px;height: 150px;float: left">
                     新闻资讯
                     <div>
@@ -431,6 +431,7 @@
                 this.item = [],
                 this.queryParams1.userid = this.form2.userid
                 this.queryParams1.consoleid = this.form2.consoleid
+                this.queryParams1.parentId =0;
                 this.$getRepquest('/consolecomment/list',this.queryParams1).then( response=>{
                     if (response){
                         if (response.rows != null &&response.rows.length>0){

@@ -64,18 +64,6 @@
                             />
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-date-picker
-                                v-model="dateRange"
-                                size="small"
-                                style="width: 240px"
-                                value-format="yyyy-MM-dd"
-                                type="daterange"
-                                range-separator="-"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期"
-                        ></el-date-picker>
-                    </el-form-item>
                     <el-form-item>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
                         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -111,24 +99,6 @@
                                 :disabled="multiple"
                                 @click="handleDelete"
                         >删除</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button
-                                type="info"
-                                plain
-                                icon="el-icon-upload2"
-                                size="mini"
-                                @click="handleImport"
-                        >导入</el-button>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <el-button
-                                type="warning"
-                                plain
-                                icon="el-icon-download"
-                                size="mini"
-                                @click="handleExport"
-                        >导出</el-button>
                     </el-col>
                 </el-row>
 
@@ -582,8 +552,8 @@
                 }).then(({ value }) => {
                     this.ResetPwd.userName = row.userName;
                     this.ResetPwd.userId = row.userId;
-                    this.ResetPwd.value =value;
-                    this.$putRequest('/system/user/',this.ResetPwd).then(response => {
+                    this.ResetPwd.password =value;
+                    this.$putRequest('/system/user/resetPwd',this.ResetPwd).then(response => {
                         if (response != null && response){
                             this.$message("修改成功，新密码是：" + value);
                         }

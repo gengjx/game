@@ -48,8 +48,8 @@
 
                 <div style="width: 200px;height: 200px;float: left;margin-left: 5%">
                     <div>
-                        <el-link @click="NewsDetail(item)" style="font-size: 20px;color: cadetblue">{{item.gameName}}</el-link><br>
-                        <el-link @click="NewsDetail(item)" style="color: yellow">{{item.gameCode}}</el-link>
+                        <el-link @click="GameDetail(item)" style="font-size: 20px;color: cadetblue">{{item.gameName}}</el-link><br>
+                        <el-link @click="GameDetail(item)" style="color: yellow">{{item.gameCode}}</el-link>
                     </div>
                     <div >
                         <div>  <span style="color: #B3C0D1;font-size: 3px">发行商</span>  {{item.gameCreater}}</div>
@@ -186,6 +186,32 @@
                     if (response){
                         window.sessionStorage.setItem("comment",JSON.stringify(response.rows));
                         this.$router.replace('/News/NewDetail')
+                    }
+                })
+            },
+            GameDetail(row){
+                window.sessionStorage.setItem("gameform",null);
+                window.sessionStorage.setItem("gamecomment",null);
+                console.log(row)
+                window.sessionStorage.setItem("gameform",JSON.stringify(row));
+
+                let query={
+                    pageNum: 1,
+                    pageSize: 10,
+                    consoleid:row.gameId
+                }
+                this.$getRepquest('/consolecomment/list/',query).then( response=>{
+                    if (response){
+                        window.sessionStorage.setItem("gamecomment",JSON.stringify(response.rows));
+
+                        this.$postRequest('/console/image/'+row.gameId).then(response=>{
+                            if (response){
+                                console.log(response);
+                                window.sessionStorage.setItem("imageList",JSON.stringify(response.imgs));
+                                this.$router.replace('/game/gameDetail/')
+                            }
+                        })
+
                     }
                 })
             },

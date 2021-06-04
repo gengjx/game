@@ -49,9 +49,9 @@
                     <el-avatar :src=scope.row.photo></el-avatar>
                 </template>
             </el-table-column>
-            <el-table-column label="主键id" align="center" prop="id" />
-            <el-table-column label="游戏id" align="center" prop="consoleid" />
-            <el-table-column label="用户id" align="center" prop="userid" />
+<!--            <el-table-column label="主键id" align="center" prop="id" />-->
+<!--            <el-table-column label="游戏id" align="center" prop="consoleid" />-->
+<!--            <el-table-column label="用户id" align="center" prop="userid" />-->
             <el-table-column label="评论用户" align="center" prop="nickname"  />
             <el-table-column label="评论内容" align="center" prop="content"   />
             <el-table-column label="创建时间" align="center" prop="createtime"   />

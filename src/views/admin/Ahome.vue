@@ -153,8 +153,8 @@
                 }).then(({ value }) => {
                     this.ResetPwd.userName = user.userName;
                     this.ResetPwd.userId = user.userId;
-                    this.ResetPwd.value =this.newpass;
-                    this.$putRequest('/system/user/',this.ResetPwd).then(response => {
+                    this.ResetPwd.password =this.newpass;
+                    this.$putRequest('/system/user/resetPwd',this.ResetPwd).then(response => {
                         if (response != null && response){
                             this.$message("修改成功，新密码是：" + this.newpass);
                         }
